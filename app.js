@@ -1,5 +1,4 @@
 'use strict';
-var global = require('./common');
 process.env.TZ = 'Asia/Seoul';
 // express 4.0
 var express = require('express');
@@ -19,7 +18,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-var router = require('./routes/router');
-app.use('/', router);
+var fleet = require('./routes/fleet');
+app.use('/control', fleet);
+
+var etcd = require('./routes/etcd');
+app.use('/control', etcd);
 
 module.exports = app;

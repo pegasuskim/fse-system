@@ -3,7 +3,8 @@
 var cluster = require('cluster');
 var http = require('http');
 var app = require('./app');
-var global = require('./common');
+var common = require('./common');
+var asciify = require('asciify');
 
 if (cluster.isMaster) {
     require('os').cpus().forEach(function() {
@@ -14,13 +15,15 @@ if (cluster.isMaster) {
         console.log('worker ' + worker.process.pid + ' is being executed.');
     });
 
+    asciify('fse control', {font:'larry3d', color: 'green'}, function (err, res) { console.log(res); });
+
     cluster.on('exit', function(worker, code, signal) {
         var exitCode = worker.process.exitCode;
         console.log('worker ' + worker.process.pid + ' died ('+exitCode+'). restarting...');
     });
 
   }else{
-      var port = normalizePort(process.env.PORT || global.config.port);
+      var port = normalizePort(process.env.PORT || common.config.port);
       app.set('port', port);
       var server = http.createServer(app);
       server.listen(port);
