@@ -1,0 +1,41 @@
+{
+      "dev": true,
+      "host": "0.0.0.0",
+      "port": 5005,
+      "logging": [
+      {
+        "level": "verbose",
+        "type": "Console",
+        "colorize": true,
+        "timestamp": true
+      },
+      {
+        "level": "file",
+        "type": "File",
+        "timestamp": true,
+        "filename": "/dev/null"
+      }
+      ],
+      "qname": "",
+      "mqueue": {
+            "mq": {
+                "host": "",
+                "port": 5672,
+                "login": "",
+                "password": "",
+                "connectionTimeout": 0,
+                "reconnect": true,
+                "authMechanism":"AMQPLAIN",
+                "vhost":"/"
+            }
+      },
+      "redis": {
+            "master": [{
+              "namespace": "dev",
+              "host": "",
+              "port": 6379,
+              "pass": "",
+              "scripts_dir": "scripts/lua/"
+            }]
+      }
+}
