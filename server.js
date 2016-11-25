@@ -4,7 +4,7 @@ var cluster = require('cluster');
 var http = require('http');
 var app = require('./app');
 var common = require('./common');
-var asciify = require('asciify');
+var figlet = require('figlet');
 
 if (cluster.isMaster) {
     require('os').cpus().forEach(function() {
@@ -15,7 +15,18 @@ if (cluster.isMaster) {
         console.log('worker ' + worker.process.pid + ' is being executed.');
     });
 
-    asciify('fse control', {font:'larry3d', color: 'green'}, function (err, res) { console.log(res); });
+    figlet.text('Fleet  &  Systemd  &  Etcd  Controller', {
+        font: 'Standard',
+        horizontalLayout: 'default',
+        verticalLayout: 'default'
+    }, function(err, data) {
+        if (err) {
+            console.log('Something went wrong...');
+            console.dir(err);
+            return;
+        }
+        console.log(data);
+    });
 
     cluster.on('exit', function(worker, code, signal) {
         var exitCode = worker.process.exitCode;
